@@ -85,3 +85,65 @@ class AttendanceAnalyzer:
         result = result.reset_index()
 
         return result
+
+# Sample Attendance Data
+attendance_data = [
+    [101, "HR", "2024-01-01", "Present"],
+    [101, "HR", "2024-01-02", "Absent"],
+    [101, "HR", "2024-01-03", "Present"],
+    [101, "HR", "2024-02-01", "Present"],
+
+    [102, "IT", "2024-01-01", "Present"],
+    [102, "IT", "2024-01-02", "Leave"],
+    [102, "IT", "2024-01-03", "Absent"],
+    [102, "IT", "2024-02-01", "Present"],
+
+    [103, "Finance", "2024-01-01", "Absent"],
+    [103, "Finance", "2024-01-02", "Absent"],
+    [103, "Finance", "2024-01-03", "Present"],
+    [103, "Finance", "2024-02-01", "Leave"]
+]
+
+# Create object
+analyzer = AttendanceAnalyzer()
+
+# Create Attendance DataFrame
+attendance_df = analyzer.create_attendance_df(attendance_data)
+
+print("\n===== Attendance Data =====")
+print(attendance_df)
+
+# Compute Monthly Attendance Rate
+monthly_attendance_rate = analyzer.compute_monthly_attendance_rate(
+    attendance_df
+)
+
+print("\n===== Monthly Attendance Rate =====")
+print(monthly_attendance_rate)
+
+# Add Absence Flag
+attendance_with_flag = analyzer.add_absence_flag(
+    attendance_df
+)
+
+print("\n===== Attendance Data with Absence Flag =====")
+print(attendance_with_flag)
+
+# Find High Absentees
+threshold = 1
+
+high_absentees_df = analyzer.high_absentees(
+    attendance_df,
+    threshold
+)
+
+print(f"\n===== Employees with Absence Count > {threshold} =====")
+print(high_absentees_df)
+
+# Department-wise Attendance Summary
+department_summary = analyzer.department_attendance_summary(
+    attendance_df
+)
+
+print("\n===== Department Attendance Summary =====")
+print(department_summary)
