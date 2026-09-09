@@ -87,7 +87,7 @@ class AttendanceAnalyzer:
         return result
 
 # Sample Attendance Data
-attendance_data = [
+data = [
     [101, "HR", "2024-01-01", "Present"],
     [101, "HR", "2024-01-02", "Absent"],
     [101, "HR", "2024-01-03", "Present"],
@@ -108,7 +108,7 @@ attendance_data = [
 analyzer = AttendanceAnalyzer()
 
 # Create Attendance DataFrame
-attendance_df = analyzer.create_attendance_df(attendance_data)
+attendance_df = analyzer.create_attendance_df(data)
 
 print("\n===== Attendance Data =====")
 print(attendance_df)
