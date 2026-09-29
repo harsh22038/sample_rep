@@ -1,4 +1,3 @@
-
 from typing import List, Tuple
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql import functions as F
@@ -11,30 +10,28 @@ from pyspark.sql.types import (
 )
 
 def define_trip_schema() -> StructType:
- return StructType([
- StructField("trip_id", StringType(), True),
- StructField("user_id", StringType(), True),
- StructField("vehicle_id", StringType(), True),
- StructField("zone", StringType(), True),
- StructField("trip_date", StringType(), True),
- StructField("start_ts", StringType(), True),
- StructField("end_ts", StringType(), True),
- StructField("distance_km", DoubleType(), True),
- StructField("fare", DoubleType(), True),
- StructField("discount", DoubleType(), True),
- StructField("payment_method", StringType(), True),
- StructField("vehicle_type", StringType(), True),
- StructField("speed_kmh", DoubleType(), True),
- StructField("harsh_brake_count", IntegerType(), True),
- StructField("status", StringType(), True)
+ schema =  StructType([
+   StructField("trip_id", StringType(), True),
+   StructField("user_id", StringType(), True),
+   StructField("vehicle_id", StringType(), True),
+   StructField("zone", StringType(), True),
+   StructField("trip_date", StringType(), True),
+   StructField("start_ts", StringType(), True),
+   StructField("end_ts", StringType(), True),
+   StructField("distance_km", DoubleType(), True),
+   StructField("fare", DoubleType(), True),
+   StructField("discount", DoubleType(), True),
+   StructField("payment_method", StringType(), True),
+   StructField("vehicle_type", StringType(), True),
+   StructField("speed_kmh", DoubleType(), True),
+   StructField("harsh_brake_count", IntegerType(), True),
+   StructField("status", StringType(), True)
  ])
+ return schema
 
 def load_trips(spark: SparkSession,path: str,schema: StructType) -> DataFrame:
- return spark.read \
- .option("header", True) \
- .schema(schema) \
- .csv(path)
-
+  return spark.read.csv(path,header = True,schema = schema)
+ 
 def parse_trip_date(df: DataFrame) -> DataFrame:
  return df.withColumn(
  "trip_date",
